@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Helloabi from "./contracts/Hello.json";
+import VestingContractDetail from "./contracts/VestingContract.json";
 import Web3 from "web3";
 import Navbar from "./Navbar";
 
@@ -11,7 +11,11 @@ const App = () => {
 
   const [account, setAccount] = useState("");
   const [loading, setLoading] = useState(true);
-  const [Hello, setHello] = useState({});
+  const [contract, setContract] = useState({});
+  const [totalToken, setTotalTokens] = useState(0);
+  const [unclaimedTokens, setUnclaimedTokens] = useState(0);
+  const [lockedTokens, setLockedTokens] = useState(0);
+  const [unLockedTokens, setUnlockedTokens] = useState(0);
 
   const loadWeb3 = async () => {
     if (window.ethereum) {
@@ -45,19 +49,39 @@ const App = () => {
       return;
     }
     setAccount(accounts[0]);
-    // const networkId = await web3.eth.net.getId();
-    // const networkData = Helloabi.networks[networkId];
-    // console.log(networkData);
-    // if (networkData) {
-    //   const hello = new web3.eth.Contract(Helloabi.abi, networkData.address);
-    //   setHello(hello);
+    const networkId = await web3.eth.net.getId();
+    if (networkId == 42) {
+      const VestingContract = new web3.eth.Contract(
+        VestingContractDetail.abi,
+        VestingContractDetail.address
+      );
+      setContract(VestingContract);
 
-    setLoading(false);
-    // } else {
-    //   window.alert("Forsage contract not deployed to detected network.");
-    //   setloading2(true);
-    // }
+      await VestingContract.methods
+        .vestingScheduleForBeneficiary(accounts[0])
+        .call()
+        .then((result) => {
+          console.log("vesting schedule data ", result);
+          setTotalTokens(result["_amount"]);
+          setLockedTokens(result["_remainingBalance"]);
+          setUnlockedTokens(result["_totalDrawn"]);
+        });
+
+      await VestingContract.methods
+        .availableDrawDownAmount(accounts[0])
+        .call()
+        .then((result) => {
+          console.log("unclaimed tokens ", result);
+          setUnclaimedTokens(result);
+        });
+
+      setLoading(false);
+    } else {
+      window.alert("Switch to Kovan Network");
+      setloading2(true);
+    }
   };
+
   const walletAddress = async () => {
     await window.ethereum.request({
       method: "eth_requestAccounts",
@@ -68,6 +92,18 @@ const App = () => {
       ],
     });
     window.location.reload();
+  };
+
+  const onClaim = async () => {
+    await contract.methods
+      .drawDown()
+      .send({ from: account })
+      .once("receipt", async (receipt) => {
+        window.location.reload();
+      })
+      .on("error", (error) => {
+        window.location.reload();
+      });
   };
 
   useEffect(() => {
@@ -83,36 +119,43 @@ const App = () => {
 
   if (loading === true) {
     content = (
-      <p className="text-center">
+      <p className='text-center'>
         Loading...{loading2 ? <div>loading....</div> : ""}
       </p>
     );
   } else {
     content = (
-      <div class="container">
-        <main role="main" class="container">
-          <div class="jumbotron">
+      <div class='container'>
+        <main role='main' class='container'>
+          <div class='jumbotron'>
             <h1>PTF token unlocking</h1>
-            <div className="row" style={{ paddingTop: "30px" }}>
+            <div className='row' style={{ paddingTop: "30px" }}>
               {" "}
-              <div className="col">
-                <h3>100</h3>
+              <div className='col'>
+                <h3>{Web3.utils.fromWei(totalToken)}</h3>
                 <h6>Total mTokens</h6>
               </div>
-              <div className="col">
-                <h3>100</h3>
+              <div className='col'>
+                <h3>{Web3.utils.fromWei(lockedTokens)}</h3>
                 <h6>Locked</h6>
               </div>
-              <div className="col">
-                <h3>100</h3>
+              <div className='col'>
+                <h3>{Web3.utils.fromWei(unLockedTokens)}</h3>
                 <h6>Unlocked</h6>
               </div>
-              <div className="col">
-                <h3>100</h3>
+              <div className='col'>
+                <h3>{Web3.utils.fromWei(unclaimedTokens)}</h3>
                 <h6>Unclaimed</h6>
               </div>
-              <div className="col">
-                <button className="btn btn-primary">Claim</button>
+              <div className='col'>
+                <button
+                  className='btn btn-primary'
+                  onClick={() => {
+                    onClaim();
+                  }}
+                >
+                  Claim
+                </button>
               </div>
             </div>
           </div>
@@ -126,7 +169,7 @@ const App = () => {
       <Navbar account={account} />
 
       {account == "" ? (
-        <div className="container">
+        <div className='container'>
           {" "}
           Connect your wallet to application{"   "}{" "}
           <button onClick={walletAddress}>metamask</button>
