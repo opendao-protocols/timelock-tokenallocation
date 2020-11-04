@@ -1,0 +1,151 @@
+$primary: #FA596B;
+
+.btn{
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  &.btn-main {
+		background: $primary !important;
+		border-radius: 6px;
+		cursor: pointer !important;
+		color: white;
+		width: 350px;
+		font-size: 0.85em;
+    height: 100%;
+	}
+}
+
+.navbar {
+	padding: 2.5rem 2rem !important;
+}
+
+.btn:hover {
+	box-shadow: 0 4px 30px hsla(0,0%,70.2%,.25);
+	color: white !important;
+	font-weight: bold;
+}
+
+.link {
+  color: #FF8686;
+}
+.link:hover {
+  text-decoration: underline;
+  color: #e67979;
+}
+
+.btn-grey-box {
+  background: #363333 !important;
+  border-radius: 5px;
+  color: #E4E5E8 !important;
+  line-height: 141.44%;
+  box-shadow: none;
+  font-weight: 500 !important;
+  font-size: 12px !important;
+  letter-spacing: 0px !important;
+  margin-right: 2em !important;
+}
+
+.section {
+  background-color: #fff;
+  border-radius: 20px;
+}
+
+.section-heading {
+    color: black;
+    font-weight: 700;
+    text-align: center;
+    padding: 1rem;
+    margin-bottom: 0;
+    font-size: 1.2em;
+}
+
+.table td {
+  word-break: break-all;
+}
+
+.width-lg td {
+  width: 62%;
+}
+
+// Onboarding Modal
+
+.carousel-control-next,
+.carousel-control-prev {
+    filter: invert(100%);
+}
+
+.carousel-fade .carousel-item {
+ opacity: 0;
+ transition-duration: 3.5s;
+ transition-property: opacity;
+}
+
+#onboardingCarousel {
+  position: relative;
+  padding: 2.6em;
+  margin: 1em;
+  padding-top: 2.5em;
+  background: #fff;
+  border-radius: 16px;
+  color: #333;
+}
+
+#onboardingCarousel img {
+  max-height: 260px;
+}
+
+.intro-slideshow-text {
+  text-align: center;
+  margin: auto;
+  font-size: 1.4em;
+  margin-top: 1em;
+}
+
+.dot {
+  height: 9px;
+  width: 9px;
+  margin-bottom: -1px;
+  margin-right: 7px;
+  background-color: #6e62ff;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.btn-nav {
+  background: #14142b !important;
+  border-radius: 117.5px !important;
+  color: #E4E5E8 !important;
+  line-height: 141.44%;
+  box-shadow: none;
+  font-weight: 500;
+  font-size: 12px;
+  letter-spacing: 0px;
+  margin-right: 2em;
+  padding: 0.45rem 1.2rem !important;
+  font-size: 0.8rem !important;
+}
+
+.table-heading {
+  font-weight: bold !important;
+}
+
+h1, h2, h3, h4, h5, h6, tr, th, td, p {
+  color: white !important;
+}
+
+table {
+  background-color: #14142b;
+}
+
+.main-heading {
+  font-size: 2.2rem;
+  text-align: left;
+  font-weight: 700 !important;
+  letter-spacing: 1px;
+}
+
+.main-values {
+  font-size: 1.45rem;
+}
+

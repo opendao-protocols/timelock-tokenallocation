@@ -1,0 +1,76 @@
+/*@font-face{
+    font-family: SF Compact Display;
+    src: url('../fonts/SF-Compact-Display-Regular.ttf');
+}
+@font-face{
+    font-family: SF Compact Display Medium;
+    src: url('../fonts/SFCompactDisplay-Medium.ttf');
+}
+@font-face{
+    font-family: SF Pro Display;
+    src: url('../fonts/SFProDisplay-Bold.ttf');
+}*/
+@font-face{
+    font-family: Varela;
+    src: url('../fonts/Varela-Regular.ttf');
+}
+
+body {
+  background-color: #060614 !important;
+  color: #fff !important;
+  font-family: Varela, Roboto, "Helvetica Neue", sans-serif !important;
+  line-height: 1.3 !important;
+}
+
+.label {
+  font-weight: 700;
+}
+
+#a {
+  position: absolute;
+  width: 182px;
+  height: 21px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+#b {
+  /* Total supply of Pool Tokens */
+
+  position: absolute;
+  width: 227px;
+  height: 21px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+
+  color: #000000;
+}
+
+#c {
+  /* STOCK price */
+
+  position: absolute;
+  width: 182px;
+  height: 21px;
+
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 18px;
+  line-height: 21px;
+  /* identical to box height */
+
+  color: #000000;
+}
