@@ -17,6 +17,7 @@ const Admin = ({
   VestingSchedule,
   getdata,
   id,
+  Web3,
 }) => {
   console.log(getdata);
   const [Beneficaryaddr, setBeneficaryaddr] = useState("");
@@ -169,22 +170,22 @@ const Admin = ({
           <Table aria-label="simple table">
             <TableHead>
               <TableRow>
-                <TableCell>Count</TableCell>
-                <TableCell align="center">Beneficiary</TableCell>
-                <TableCell align="right">Value&nbsp;</TableCell>
+                <TableCell align="left">Count</TableCell>
+                <TableCell align="left">Beneficiary</TableCell>
+                <TableCell align="left">Yet to be claimed&nbsp;</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
               {getdata.map((data, count) => {
                 return (
                   <TableRow>
-                    <TableCell component="th" scope="row">
+                    <TableCell component="th" scope="row" align="left">
                       {count + 1}
                     </TableCell>
-                    <TableCell align="center">
+                    <TableCell align="left">
                       {data.beneficaryaddress}
                     </TableCell>
-                    <TableCell align="right">{data.amount}</TableCell>
+                    <TableCell align="left">{parseFloat(Web3.utils.fromWei(data.amount)).toFixed(2)}</TableCell>
                   </TableRow>
                 );
               })}

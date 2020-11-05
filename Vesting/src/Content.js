@@ -136,7 +136,7 @@ const Content = ({ Web3, getdata, contract, id }) => {
             <TableHead>
               <TableRow>
                 <TableCell align="left" className="table-heading">Beneficiary</TableCell>
-                <TableCell align="left" className="table-heading">Amount&nbsp;</TableCell>
+                <TableCell align="left" className="table-heading">Yet to be claimed&nbsp;</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -158,7 +158,7 @@ const Content = ({ Web3, getdata, contract, id }) => {
             <tr>
               <th scope="col">count</th>
               <th scope="col">Beneficiary</th>
-              <th scope="col">value</th>
+              <th scope="col">Yet to be claimed</th>
             </tr>
           </thead>
           <tbody>
