@@ -25,7 +25,7 @@ const Body = ({
           id={1}
         />
       </TabPane>
-      <TabPane tab="Private Sales vesting" key="2">
+{/*       <TabPane tab="Private Sales vesting" key="2">
         <Content
           Web3={Web3}
           getdata={getdatatwo}
@@ -40,7 +40,7 @@ const Body = ({
           contract={privateTeamContract}
           id={3}
         />
-      </TabPane>
+      </TabPane> */}
     </Tabs>
   );
 };

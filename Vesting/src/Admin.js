@@ -1,14 +1,5 @@
 import React, { useState } from "react";
 import swal from "sweetalert";
-import axios from "axios";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 import "./css/body.css";
 
 const Admin = ({
@@ -17,7 +8,6 @@ const Admin = ({
   VestingSchedule,
   getdata,
   id,
-  Web3,
 }) => {
   console.log(getdata);
   const [Beneficaryaddr, setBeneficaryaddr] = useState("");
@@ -166,32 +156,6 @@ const Admin = ({
         className="container"
         style={{ paddingTop: "20px", paddingBottom: "40px" }}
       >
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="left">Count</TableCell>
-                <TableCell align="left">Beneficiary</TableCell>
-                <TableCell align="left">Yet to be claimed&nbsp;</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {getdata.map((data, count) => {
-                return (
-                  <TableRow>
-                    <TableCell component="th" scope="row" align="left">
-                      {count + 1}
-                    </TableCell>
-                    <TableCell align="left">
-                      {data.beneficaryaddress}
-                    </TableCell>
-                    <TableCell align="left">{parseFloat(Web3.utils.fromWei(data.amount)).toFixed(2)}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
       </div>
     </div>
   );

@@ -1,12 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
 import axios from "axios";
 import "./css/body.css";
 import "./css/custom-antd.scss";
@@ -131,34 +124,12 @@ const Content = ({ Web3, getdata, contract, id }) => {
         className=""
         style={{ paddingTop: "20px", paddingBottom: "40px" }}
       >
-        <TableContainer component={Paper}>
-          <Table aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell align="left" className="table-heading">Beneficiary</TableCell>
-                <TableCell align="left" className="table-heading">Yet to be claimed&nbsp;</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {getdata.map((data, count) => {
-                return (
-                  <TableRow>
-                    <TableCell align="left">
-                      {data.beneficaryaddress}
-                    </TableCell>
-                    <TableCell align="left">{parseFloat(Web3.utils.fromWei(data.amount)).toFixed(2)}</TableCell>
-                  </TableRow>
-                );
-              })}
-            </TableBody>
-          </Table>
-        </TableContainer>
         {/* <table className="table">
           <thead>
             <tr>
               <th scope="col">count</th>
               <th scope="col">Beneficiary</th>
-              <th scope="col">Yet to be claimed</th>
+              <th scope="col">value</th>
             </tr>
           </thead>
           <tbody>

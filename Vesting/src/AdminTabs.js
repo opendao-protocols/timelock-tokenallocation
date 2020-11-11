@@ -36,7 +36,7 @@ const AdminTabs = ({
           Web3={Web3}
         />
       </TabPane>
-      <TabPane tab="Private Sales vesting" key="2">
+{/*       <TabPane tab="Private Sales vesting" key="2">
         <Admin
           updatebeneficiary={updatebeneficiary2}
           transferowner={transferowner2}
@@ -57,7 +57,7 @@ const AdminTabs = ({
           contract={privateTeamContract}
           Web3={Web3}
         />
-      </TabPane>
+      </TabPane> */}
     </Tabs>
   );
 };
