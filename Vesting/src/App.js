@@ -41,12 +41,12 @@ const App = () => {
   const [lockedTokens, setLockedTokens] = useState(0);
   const [unLockedTokens, setUnlockedTokens] = useState(0);
   const [getdataone, setgetdataone] = useState([]);
-  // const [getdatatwo, setgetdatatwo] = useState([]);
-  // const [getdatathree, setgetdatathree] = useState([]);
+  const [getdatatwo, setgetdatatwo] = useState([]);
+  const [getdatathree, setgetdatathree] = useState([]);
 
-  const [privateSales1Contract, setprivateSales1Contract] = useState({});
-  // const [privateSales2Contract, setPrivateSales2Contract] = useState({});
-  // const [privateTeamContract, setPrivateTeamContract] = useState({});
+  const [vesting1Contract, setvesting1Contract] = useState({});
+  const [vesting2Contract, setVesting2Contract] = useState({});
+  const [vesting3Contract, setVesting3Contract] = useState({});
   const [OpenGovToken, setOpenGovToken] = useState({});
 
   const loadWeb3 = async () => {
@@ -84,18 +84,18 @@ const App = () => {
     const networkId = await web3.eth.net.getId();
     if (networkId == 42) {
       setNetwork("Kovan");
-      const privateSales1 = new web3.eth.Contract(
+      const vesting1 = new web3.eth.Contract(
         VestingContractDetail.abi,
-        VestingContractDetail.privateSale1Address
+        VestingContractDetail.vesting1
       );
-      // const privateSales2 = new web3.eth.Contract(
-      //   VestingContractDetail.abi,
-      //   VestingContractDetail.privateSale2Address
-      // );
-      // const privateTeam = new web3.eth.Contract(
-      //   VestingContractDetail.abi,
-      //   VestingContractDetail.teamAddress
-      // );
+      const vesting2 = new web3.eth.Contract(
+        VestingContractDetail.abi,
+        VestingContractDetail.vesting2
+      );
+      const vesting3 = new web3.eth.Contract(
+        VestingContractDetail.abi,
+        VestingContractDetail.vesting3
+      );
 
       const openGovToken = new web3.eth.Contract(
         OpenGovTokenabi.abi,
@@ -103,25 +103,25 @@ const App = () => {
       );
 
       setOpenGovToken(openGovToken);
-      setContract(privateSales1);
-      setprivateSales1Contract(privateSales1);
-      // setPrivateSales2Contract(privateSales2);
-      // setPrivateTeamContract(privateTeam);
+      setContract(vesting1);
+      setvesting1Contract(vesting1);
+      setVesting2Contract(vesting2);
+      setVesting3Contract(vesting3);
 
       await axios.get(api + "/getdata/1").then((response) => {
         setgetdataone(response.data);
         console.log(response.data);
       });
 
-      // await axios.get(api + "/getdata/2").then((response) => {
-      //   setgetdatatwo(response.data);
-      //   console.log(response.data);
-      // });
+      await axios.get(api + "/getdata/2").then((response) => {
+        setgetdatatwo(response.data);
+        console.log(response.data);
+      });
 
-      // await axios.get(api + "/getdata/3").then((response) => {
-      //   setgetdatathree(response.data);
-      //   console.log(response.data);
-      // });
+      await axios.get(api + "/getdata/3").then((response) => {
+        setgetdatathree(response.data);
+        console.log(response.data);
+      });
       setLoading(false);
     } else {
       window.alert("Switch to Kovan Network");
@@ -146,7 +146,7 @@ const App = () => {
     console.log(beneficaryaddress);
     await OpenGovToken.methods
       .approve(
-        VestingContractDetail.privateSale1Address,
+        VestingContractDetail.vesting1,
         window.web3.utils.toWei(amount.toString())
       )
       .send({ from: account })
@@ -155,7 +155,7 @@ const App = () => {
         window.location.reload();
       });
 
-    await privateSales1Contract.methods
+    await vesting1Contract.methods
       .createVestingSchedule(
         beneficaryaddress.toString(),
         window.web3.utils.toWei(amount.toString())
@@ -179,7 +179,7 @@ const App = () => {
   };
 
   const transferowner1 = async (address) => {
-    await privateSales1Contract.methods
+    await vesting1Contract.methods
       .transferOwnership(address)
       .send({ from: account })
       .once("receipt", async (receipt) => {
@@ -191,7 +191,7 @@ const App = () => {
   };
 
   const updatebeneficiary1 = async (currentbeneficary, newbeneficiary) => {
-    await privateSales1Contract.methods
+    await vesting1Contract.methods
       .updateScheduleBeneficiary(currentbeneficary, newbeneficiary)
       .send({ from: account })
       .once("receipt", async (receipt) => {
@@ -202,127 +202,127 @@ const App = () => {
       });
   };
 
-  // const VestingSchedule2 = async (beneficaryaddress, amount, ID) => {
-  //   console.log(window.web3.utils.toWei(amount.toString()));
-  //   console.log(beneficaryaddress);
-  //   await OpenGovToken.methods
-  //     .approve(
-  //       VestingContractDetail.privateSale2Address,
-  //       window.web3.utils.toWei(amount.toString())
-  //     )
-  //     .send({ from: account })
-  //     .once("receipt", async (receipt) => {})
-  //     .on("error", (error) => {
-  //       window.location.reload();
-  //     });
+  const VestingSchedule2 = async (beneficaryaddress, amount, ID) => {
+    console.log(window.web3.utils.toWei(amount.toString()));
+    console.log(beneficaryaddress);
+    await OpenGovToken.methods
+      .approve(
+        VestingContractDetail.vesting2,
+        window.web3.utils.toWei(amount.toString())
+      )
+      .send({ from: account })
+      .once("receipt", async (receipt) => {})
+      .on("error", (error) => {
+        window.location.reload();
+      });
 
-  //   await await privateSales2Contract.methods
-  //     .createVestingSchedule(
-  //       beneficaryaddress.toString(),
-  //       window.web3.utils.toWei(amount.toString())
-  //     )
-  //     .send({ from: account })
-  //     .once("receipt", async (receipt) => {
-  //       await axios
-  //         .post(api + "/postdata", {
-  //           id: ID,
-  //           beneficaryaddress: beneficaryaddress,
-  //           amount: window.web3.utils.toWei(amount.toString()),
-  //         })
-  //         .then(function (response) {
-  //           console.log(response);
-  //         });
-  //       window.location.reload();
-  //     })
-  //     .on("error", (error) => {
-  //       window.location.reload();
-  //     });
-  // };
+    await await vesting2Contract.methods
+      .createVestingSchedule(
+        beneficaryaddress.toString(),
+        window.web3.utils.toWei(amount.toString())
+      )
+      .send({ from: account })
+      .once("receipt", async (receipt) => {
+        await axios
+          .post(api + "/postdata", {
+            id: ID,
+            beneficaryaddress: beneficaryaddress,
+            amount: window.web3.utils.toWei(amount.toString()),
+          })
+          .then(function (response) {
+            console.log(response);
+          });
+        window.location.reload();
+      })
+      .on("error", (error) => {
+        window.location.reload();
+      });
+  };
 
-  // const transferowner2 = async (address) => {
-  //   await privateSales2Contract.methods
-  //     .transferOwnership(address)
-  //     .send({ from: account })
-  //     .once("receipt", async (receipt) => {
-  //       window.location.reload();
-  //     })
-  //     .on("error", (error) => {
-  //       window.location.reload();
-  //     });
-  // };
+  const transferowner2 = async (address) => {
+    await vesting2Contract.methods
+      .transferOwnership(address)
+      .send({ from: account })
+      .once("receipt", async (receipt) => {
+        window.location.reload();
+      })
+      .on("error", (error) => {
+        window.location.reload();
+      });
+  };
 
-  // const updatebeneficiary2 = async (currentbeneficary, newbeneficiary) => {
-  //   await privateSales2Contract.methods
-  //     .updateScheduleBeneficiary(currentbeneficary, newbeneficiary)
-  //     .send({ from: account })
-  //     .once("receipt", async (receipt) => {
-  //       window.location.reload();
-  //     })
-  //     .on("error", (error) => {
-  //       window.location.reload();
-  //     });
-  // };
+  const updatebeneficiary2 = async (currentbeneficary, newbeneficiary) => {
+    await vesting2Contract.methods
+      .updateScheduleBeneficiary(currentbeneficary, newbeneficiary)
+      .send({ from: account })
+      .once("receipt", async (receipt) => {
+        window.location.reload();
+      })
+      .on("error", (error) => {
+        window.location.reload();
+      });
+  };
 
-  // const VestingSchedule3 = async (beneficaryaddress, amount, ID) => {
-  //   console.log(window.web3.utils.toWei(amount.toString()));
-  //   console.log(beneficaryaddress);
-  //   await OpenGovToken.methods
-  //     .approve(
-  //       VestingContractDetail.teamAddress,
-  //       window.web3.utils.toWei(amount.toString())
-  //     )
-  //     .send({ from: account })
-  //     .once("receipt", async (receipt) => {})
-  //     .on("error", (error) => {
-  //       window.location.reload();
-  //     });
+  const VestingSchedule3 = async (beneficaryaddress, amount, ID) => {
+    console.log(window.web3.utils.toWei(amount.toString()));
+    console.log(beneficaryaddress);
+    await OpenGovToken.methods
+      .approve(
+        VestingContractDetail.vesting3,
+        window.web3.utils.toWei(amount.toString())
+      )
+      .send({ from: account })
+      .once("receipt", async (receipt) => {})
+      .on("error", (error) => {
+        window.location.reload();
+      });
 
-  //   await privateTeamContract.methods
-  //     .createVestingSchedule(
-  //       beneficaryaddress.toString(),
-  //       window.web3.utils.toWei(amount.toString())
-  //     )
-  //     .send({ from: account })
-  //     .once("receipt", async (receipt) => {
-  //       await axios
-  //         .post(api + "/postdata", {
-  //           id: ID,
-  //           beneficaryaddress: beneficaryaddress,
-  //           amount: window.web3.utils.toWei(amount.toString()),
-  //         })
-  //         .then(function (response) {
-  //           console.log(response);
-  //         });
-  //       window.location.reload();
-  //     })
-  //     .on("error", (error) => {
-  //       window.location.reload();
-  //     });
-  // };
+    await vesting3Contract.methods
+      .createVestingSchedule(
+        beneficaryaddress.toString(),
+        window.web3.utils.toWei(amount.toString())
+      )
+      .send({ from: account })
+      .once("receipt", async (receipt) => {
+        await axios
+          .post(api + "/postdata", {
+            id: ID,
+            beneficaryaddress: beneficaryaddress,
+            amount: window.web3.utils.toWei(amount.toString()),
+          })
+          .then(function (response) {
+            console.log(response);
+          });
+        window.location.reload();
+      })
+      .on("error", (error) => {
+        window.location.reload();
+      });
+  };
 
-  // const transferowner3 = async (address) => {
-  //   await privateTeamContract.methods
-  //     .transferOwnership(address)
-  //     .send({ from: account })
-  //     .once("receipt", async (receipt) => {
-  //       window.location.reload();
-  //     })
-  //     .on("error", (error) => {
-  //       window.location.reload();
-  //     });
-  // };
+  const transferowner3 = async (address) => {
+    await vesting3Contract.methods
+      .transferOwnership(address)
+      .send({ from: account })
+      .once("receipt", async (receipt) => {
+        window.location.reload();
+      })
+      .on("error", (error) => {
+        window.location.reload();
+      });
+  };
 
-  // const updatebeneficiary3 = async (currentbeneficary, newbeneficiary) => {
-  //   await privateTeamContract.methods
-  //     .updateScheduleBeneficiary(currentbeneficary, newbeneficiary)
-  //     .send({ from: account })
-  //     .once("receipt", async (receipt) => {
-  //       window.location.reload();
-  //     })
-  //     .on("error", (error) => {
-  //       window.location.reload();
-  //     });
-  // };
+  const updatebeneficiary3 = async (currentbeneficary, newbeneficiary) => {
+    await vesting3Contract.methods
+      .updateScheduleBeneficiary(currentbeneficary, newbeneficiary)
+      .send({ from: account })
+      .once("receipt", async (receipt) => {
+        window.location.reload();
+      })
+      .on("error", (error) => {
+        window.location.reload();
+      });
+  };
 
   if (loading === true) {
     content = (
@@ -342,12 +342,12 @@ const App = () => {
                 <Fragment>
                   <Body
                     Web3={window.web3}
-                    privateSales1Contract={privateSales1Contract}
-/*                     privateSales2Contract={privateSales2Contract}
-                    privateTeamContract={privateTeamContract} */
+                    vesting1Contract={vesting1Contract}
+                    vesting2Contract={vesting2Contract}
+                    vesting3Contract={vesting3Contract}
                     getdataone={getdataone}
-/*                     getdatatwo={getdatatwo}
-                    getdatathree={getdatathree} */
+                    getdatatwo={getdatatwo}
+                    getdatathree={getdatathree}
                   />
                 </Fragment>
               )}
@@ -359,21 +359,21 @@ const App = () => {
               render={() => (
                 <Fragment>
                   <AdminTab
-                    privateSales1Contract={privateSales1Contract}
-/*                     privateSales2Contract={privateSales2Contract}
-                    privateTeamContract={privateTeamContract} */
+                    vesting1Contract={vesting1Contract}
+                    vesting2Contract={vesting2Contract}
+                    vesting3Contract={vesting3Contract}
                     updatebeneficiary1={updatebeneficiary1}
                     transferowner1={transferowner1}
                     VestingSchedule1={VestingSchedule1}
-/*                     updatebeneficiary2={updatebeneficiary2}
+                    updatebeneficiary2={updatebeneficiary2}
                     transferowner2={transferowner2}
                     VestingSchedule2={VestingSchedule2}
                     updatebeneficiary3={updatebeneficiary3}
                     transferowner3={transferowner3}
-                    VestingSchedule3={VestingSchedule3} */
+                    VestingSchedule3={VestingSchedule3}
                     getdataone={getdataone}
-/*                     getdatatwo={getdatatwo}
-                    getdatathree={getdatathree} */
+                    getdatatwo={getdatatwo}
+                    getdatathree={getdatathree}
                     Web3={window.web3}
                   />
                 </Fragment>

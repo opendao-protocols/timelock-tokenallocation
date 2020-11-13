@@ -16,48 +16,48 @@ const AdminTabs = ({
   getdataone,
   getdatatwo,
   getdatathree,
-  privateSales1Contract,
-  privateSales2Contract,
-  privateTeamContract,
+  vesting1Contract,
+  vesting2Contract,
+  vesting3Contract,
   Web3,
 }) => {
   const { TabPane } = Tabs;
 
   return (
     <Tabs defaultActiveKey="1">
-      <TabPane tab="Private Sales initial unlock" key="1">
+      <TabPane tab="Vesting Contract 1" key="1">
         <Admin
           updatebeneficiary={updatebeneficiary1}
           transferowner={transferowner1}
           VestingSchedule={VestingSchedule1}
           getdata={getdataone}
           id={1}
-          contract={privateSales1Contract}
+          contract={vesting1Contract}
           Web3={Web3}
         />
       </TabPane>
-{/*       <TabPane tab="Private Sales vesting" key="2">
+      <TabPane tab="Vesting Contract 2" key="2">
         <Admin
           updatebeneficiary={updatebeneficiary2}
           transferowner={transferowner2}
           VestingSchedule={VestingSchedule2}
           getdata={getdatatwo}
           id={2}
-          contract={privateSales2Contract}
+          contract={vesting2Contract}
           Web3={Web3}
         />
       </TabPane>
-      <TabPane tab="Core Team vesting" key="3">
+      <TabPane tab="Vesting Contract 3" key="3">
         <Admin
           updatebeneficiary={updatebeneficiary3}
           transferowner={transferowner3}
           VestingSchedule={VestingSchedule3}
           getdata={getdatathree}
           id={3}
-          contract={privateTeamContract}
+          contract={vesting3Contract}
           Web3={Web3}
         />
-      </TabPane> */}
+      </TabPane>
     </Tabs>
   );
 };

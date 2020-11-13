@@ -8,39 +8,39 @@ const Body = ({
   getdataone,
   getdatatwo,
   getdatathree,
-  privateSales1Contract,
-  privateSales2Contract,
-  privateTeamContract,
+  vesting1Contract,
+  vesting2Contract,
+  vesting3Contract,
   }) => {
 
   const { TabPane } = Tabs;
 
   return (
     <Tabs defaultActiveKey="1">
-      <TabPane tab="Private Sales initial unlock" key="1">
+      <TabPane tab="Vesting Contract 1" key="1">
         <Content
           Web3={Web3}
           getdata={getdataone}
-          contract={privateSales1Contract}
+          contract={vesting1Contract}
           id={1}
         />
       </TabPane>
-{/*       <TabPane tab="Private Sales vesting" key="2">
+      <TabPane tab="Vesting Contract 2" key="2">
         <Content
           Web3={Web3}
           getdata={getdatatwo}
-          contract={privateSales2Contract}
+          contract={vesting2Contract}
           id={2}
         />
       </TabPane>
-      <TabPane tab="Core Team vesting" key="3">
+      <TabPane tab="Vesting Contract 3" key="3">
         <Content
           Web3={Web3}
           getdata={getdatathree}
-          contract={privateTeamContract}
+          contract={vesting3Contract}
           id={3}
         />
-      </TabPane> */}
+      </TabPane>
     </Tabs>
   );
 };
